@@ -19,9 +19,6 @@ content = request.text
 parsed = BeautifulSoup(content, 'html.parser')
 h3_items = parsed.find_all('h3')
 for item in h3_items:
-    #print(item.text)
-    #item=item.text
-    #results.append(item)
     item='"title":'+ item.text
     articles.append(item)
 jsonAr = json.dumps({
