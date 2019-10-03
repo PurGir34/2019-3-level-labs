@@ -31,4 +31,8 @@ jsonAr = json.dumps({
 	})
 with open("jfile.json", "w") as file:
     file.write(jsonAr)
+#with open("jfile.json", "r") as read_file:
+#   data = json.load(read_file)
+#print(data) НАДО ВЕРНУТЬ 
 print(big_dic)
+print("hello")
