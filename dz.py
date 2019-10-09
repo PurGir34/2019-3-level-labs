@@ -20,21 +20,10 @@ def get_html(url):
 	request = requests.get(url)
 	content = request.text
 	parsed = BeautifulSoup(content, 'html.parser')
-	lil = parsed.find_all(class_="np-post-content")
+	lil = parsed.find_all('h3')
 	for pan in lil:
 		results.append(pan.text)
-	# items=lil.find_all('div',{'class':'widget news_portal_block_posts np-clearfix'})
-	# for item in items:
-	# lul=item.find('div',{'class' : 'np-post-content'}).find('h3').text
-	# print(item)
-	# results.append({
-	# 'text':lul
-	# })
 	return (results)
-
-
-url = 'https://panorama.pub'
-print(get_html(url))
 
 
 def find_articles(lil_html):
