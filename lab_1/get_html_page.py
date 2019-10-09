@@ -1,5 +1,5 @@
 import unittest
-from dz import get_html_page
+from dz import get_html
 
 
 class MyTestCase(unittest.TestCase):
