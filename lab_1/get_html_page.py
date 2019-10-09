@@ -7,7 +7,6 @@ class MyTestCase(unittest.TestCase):
         url = "https://panorama.pub"
         a = get_html(url)
         print(a)
-        self.assertEqual(a.status_code, 200)
 
 
 if __name__ == '__main__':
