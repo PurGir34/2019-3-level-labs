@@ -3,6 +3,8 @@ import json
 import datetime
 import urllib.request
 from bs4 import BeautifulSoup
+from flask import Flask
+from flask import render_template
 
 now = datetime.datetime.now()
 date = now.strftime("%d-%m-%Y")
@@ -45,16 +47,6 @@ def publish_report(path, articles):
     return (data)
 
 
-lil_html = get_html(url)
-articles = find_articles(lil_html)
-publish_report(path,articles)
-
-#print(articles)
-with open("articles.json", "r", encoding="utf8") as read_file:
-    dota = json.load(read_file)
-
-print(dota)
-
 def structure(file):
     flag = False
     with open(file, "r",encoding="utf8") as read_file1:
@@ -82,3 +74,21 @@ def structure(file):
 
 def check_url(url):
     return(urllib.request.urlopen(url).getcode())
+    
+    
+
+app = Flask(__name__)
+
+@app.route('/')
+def panorama_articles():
+    lil_html = get_html(url)
+    articles = find_articles(lil_html)
+    publish_report(path, articles)
+    print(articles)
+    
+    with open("articles.json", "r", encoding="utf-8") as read_file1:
+        data_set = json.load(read_file1)
+    return render_template('news.html', url=data_set['url'], date=data_set['creationDate'], articles=articles)
+
+if __name__ == "__main__":
+    app.run()

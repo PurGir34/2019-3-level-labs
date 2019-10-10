@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заголовки с Панорамы</title>
+</head>
+<body>
+    <ol>
+        {% for article in articles %}
+          <li>{{ article }}</li>
+        {% endfor %}
+    </ol>
+    <p><b>Источник:</b> {{ url }}</p>
+    <p><b>Дата:</b> {{ date }}</p>
+</body>
+</html>
