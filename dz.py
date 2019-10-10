@@ -1,7 +1,6 @@
 import requests
 import json
 import datetime
-import urllib.request
 from bs4 import BeautifulSoup
 from flask import Flask
 from flask import render_template
