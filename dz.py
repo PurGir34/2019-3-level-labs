@@ -43,29 +43,7 @@ def publish_report(path, articles):
     data["articles"] = c
     with open(path, "w",encoding="utf8") as write_file:
         json.dump(data, write_file,indent = 2, ensure_ascii=False)
-    return (data)
-
-
-def structure(file):
-    flag = False
-    with open(file, "r",encoding="utf8") as read_file1:
-        data_set = json.load(read_file1)
-    if data_set["url"] == "https://panorama.pub":
-            flag = True
-    if len(data_set["articles"]) >= 1:
-        flag = True
-    for i in data_set["articles"]:
-        for key in i:
-            if i[key] != None:
-                flag=True
-                break
-
-    return(flag)
-
-def check_url(url):
-    return(urllib.request.urlopen(url).getcode())
-    
-    
+    return (data)    
 
 app = Flask(__name__)
 
