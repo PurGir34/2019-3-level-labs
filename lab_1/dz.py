@@ -15,21 +15,20 @@ data = {
     "articles": ["None"]
 }
 
+
 def get_html(url):
-	results = []
-	request = requests.get(url)
-	content = request.text
-	parsed = BeautifulSoup(content, 'html.parser')
-	lil = parsed.find_all('h3')
-	for pan in lil:
-		results.append(pan.text)
-	return (results)
+    request = requests.get(url)
+    content = request.text
+    if request.status_code != 200:
+        print('Chto-to tut ne takb...')
+        return 0
+    return (content)
 
 
 def find_articles(lil_html):
     titles = []
     lil_parsed = BeautifulSoup(lil_html,'html.parser')
-    lil_article = lil_parsed.find_all(class_='post_new-title')
+    lil_article = lil_parsed.find_all('h3')
     for title in lil_article:
         titles.append(title.text.strip())
     return (titles)
@@ -41,7 +40,7 @@ def publish_report(path, articles):
         d = {"title": i}
         c.append(d)
     data["articles"] = c
-    with open(path, "w",encoding="utf-8") as write_file:
+    with open(path, "w",encoding="utf8") as write_file:
         json.dump(data, write_file,indent = 2, ensure_ascii=False)
     return (data)
 
@@ -50,11 +49,15 @@ lil_html = get_html(url)
 articles = find_articles(lil_html)
 publish_report(path,articles)
 
-print(articles)
+#print(articles)
+with open("articles.json", "r", encoding="utf8") as read_file:
+    dota = json.load(read_file)
+
+print(dota)
 
 def structure(file):
     flag = False
-    with open(file, "r",encoding="utf-8") as read_file1:
+    with open(file, "r",encoding="utf8") as read_file1:
         data_set = json.load(read_file1)
     if data_set["url"] == "https://panorama.pub":
             flag = True
@@ -68,14 +71,14 @@ def structure(file):
 
     return(flag)
 
-def struc_articles(url):
-    flag = False
-    lil_html = get_html(url)
-    lil_parsed = BeautifulSoup(lil_html, 'html.parser')
-    lil_article =  lil_parsed.find_all(class_='post_new-title')
-    if  lil_article ==  lil_parsed.find_all(class_='post_new-title'):
-         flag= True
-    return (flag)
+#def struc_articles(url):
+ #   flag = False
+  #  lil_html = get_html(url)
+   # lil_parsed = BeautifulSoup(lil_html, 'html.parser')
+   # lil_article =  lil_parsed.find_all('h3')
+   # if  lil_article ==  lil_parsed.find_all('h3'):
+   #      flag= True
+   # return (flag)
 
 def check_url(url):
     return(urllib.request.urlopen(url).getcode())
