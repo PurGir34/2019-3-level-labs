@@ -62,15 +62,6 @@ def structure(file):
 
     return(flag)
 
-#def struc_articles(url):
- #   flag = False
-  #  lil_html = get_html(url)
-   # lil_parsed = BeautifulSoup(lil_html, 'html.parser')
-   # lil_article =  lil_parsed.find_all('h3')
-   # if  lil_article ==  lil_parsed.find_all('h3'):
-   #      flag= True
-   # return (flag)
-
 def check_url(url):
     return(urllib.request.urlopen(url).getcode())
     
