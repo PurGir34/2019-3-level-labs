@@ -1,6 +1,5 @@
 import unittest
 import requests
-import simplejson as json
 from dz import find_articles, get_html, publish_report
 
 
