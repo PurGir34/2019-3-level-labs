@@ -38,7 +38,7 @@ def find_articles(lil_html):
 def publish_report(path, articles):
     c = []
     for i in articles:
-        d = {"title": i}
+        d = {"title": i + ' url :https://panorama.pub'}
         c.append(d)
     data["articles"] = c
     with open(path, "w",encoding="utf8") as write_file:
@@ -52,7 +52,7 @@ def panorama_articles():
     lil_html = get_html(url)
     articles = find_articles(lil_html)
     publish_report(path, articles)
-    print(articles)
+   # print(articles)
     
     with open("articles.json", "r", encoding="utf-8") as read_file1:
         data_set = json.load(read_file1)
