@@ -2,7 +2,7 @@ import requests
 import json
 import datetime
 from bs4 import BeautifulSoup
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask import render_template
 
 now = datetime.datetime.now()
@@ -28,7 +28,7 @@ def get_html(url):
 
 def find_articles(lil_html):
     titles = []
-    lil_parsed = BeautifulSoup(lil_html,'html.parser')
+    lil_parsed = BeautifulSoup(lil_html, 'html.parser')
     lil_article = lil_parsed.find_all('h3')
     for title in lil_article:
         titles.append(title.text.strip())
@@ -41,22 +41,30 @@ def publish_report(path, articles):
         d = {"title": i + ' url :https://panorama.pub'}
         c.append(d)
     data["articles"] = c
-    with open(path, "w",encoding="utf8") as write_file:
-        json.dump(data, write_file,indent = 2, ensure_ascii=False)
-    return (data)    
+    with open(path, "w", encoding="utf8") as write_file:
+        json.dump(data, write_file, indent=2, ensure_ascii=False)
+    return (data)
+
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def panorama_articles():
     lil_html = get_html(url)
     articles = find_articles(lil_html)
     publish_report(path, articles)
-   # print(articles)
-    
+    # print(articles)
+
     with open("articles.json", "r", encoding="utf-8") as read_file1:
         data_set = json.load(read_file1)
     return render_template('news.html', url=data_set['url'], date=data_set['creationDate'], articles=articles)
+
+
+@app.route('/update_page')
+def update_page():
+    return redirect(url_for('panorama_articles'))
+
 
 if __name__ == "__main__":
     app.run()
