@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+  {{date}}
+	<p><b>АДШАНИН</b></p>
+</body>
+</html>

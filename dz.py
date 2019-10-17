@@ -9,6 +9,7 @@ now = datetime.datetime.now()
 date = now.strftime("%d-%m-%Y")
 url = "https://panorama.pub"
 path = "articles.json"
+fas = "date.json"
 data = {
 
     "url": url,
@@ -44,11 +45,15 @@ def publish_report(path, articles):
     with open(path, "w", encoding="utf8") as write_file:
         json.dump(data, write_file, indent=2, ensure_ascii=False)
     return (data)
-
+def get_date(date):
+    dt=date
+    print(dt)
+    return(dt)
 
 app = Flask(__name__)
 
 
+    
 @app.route('/')
 def panorama_articles():
     lil_html = get_html(url)
@@ -61,9 +66,20 @@ def panorama_articles():
     return render_template('news.html', url=data_set['url'], date=data_set['creationDate'], articles=articles)
 
 
+@app.route('/yfyg')
+def update2():
+    now = datetime.datetime.now()
+    date = now.strftime("%d-%m-%Y")
+   
+    return render_template('new.html', date=date)
+
 @app.route('/update_page')
 def update_page():
     return redirect(url_for('panorama_articles'))
+    
+@app.route('/task')
+def update2_page():
+    return redirect(url_for('update2'))
 
 
 if __name__ == "__main__":
